@@ -1,0 +1,123 @@
+
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
+    color:#1a1a1a;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    padding:20px;
+    background:#1565c0;
+    color:white;
+    font-size:26px;
+    font-weight:bold;
+}
+
+/* MAIN CARDS */
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:85vh;
+    gap:60px;
+}
+
+.card{
+    width:320px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:0.3s;
+    overflow:hidden;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.card h2{
+    margin:15px 0 5px 0;
+}
+
+.card p{
+    padding:0 15px 20px 15px;
+    color:#555;
+}
+
+/* SECTIONS */
+.section{
+    display:none;
+    padding:40px;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* OPTION GRID */
+.options{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:25px;
+}
+
+.option-card{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    overflow:hidden;
+    transition:0.3s;
+    text-align:center;
+}
+
+.option-card:hover{
+    transform:scale(1.03);
+}
+
+.option-card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.option-card h3{
+    margin:15px 0 5px 0;
+}
+
+.option-card p{
+    padding:0 15px 15px 15px;
+    font-size:14px;
+    color:#555;
+}
+
+button{
+    padding:8px 15px;
+    background:#1565c0;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+button:hover{
+    background:#0d47a1;
+}
+
+.back-btn{
+    margin-top:40px;
+    display:block;
+    text-align:center;
+}

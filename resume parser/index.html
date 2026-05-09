@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Resume Parser Platform</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
+    color:#1a1a1a;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    padding:20px;
+    background:#1565c0;
+    color:white;
+    font-size:26px;
+    font-weight:bold;
+}
+
+/* MAIN CARDS */
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:85vh;
+    gap:60px;
+}
+
+.card{
+    width:320px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:0.3s;
+    overflow:hidden;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.card h2{
+    margin:15px 0 5px 0;
+}
+
+.card p{
+    padding:0 15px 20px 15px;
+    color:#555;
+}
+
+/* SECTIONS */
+.section{
+    display:none;
+    padding:40px;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* OPTION GRID */
+.options{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:25px;
+}
+
+.option-card{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    overflow:hidden;
+    transition:0.3s;
+    text-align:center;
+}
+
+.option-card:hover{
+    transform:scale(1.03);
+}
+
+.option-card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.option-card h3{
+    margin:15px 0 5px 0;
+}
+
+.option-card p{
+    padding:0 15px 15px 15px;
+    font-size:14px;
+    color:#555;
+}
+
+button{
+    padding:8px 15px;
+    background:#1565c0;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+button:hover{
+    background:#0d47a1;
+}
+
+.back-btn{
+    margin-top:40px;
+    display:block;
+    text-align:center;
+}
+/* RESULT CARD */
+.result-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    max-width:500px;
+    margin:auto;
+    text-align:left;
+}
+
+/* SKILL CHIPS */
+.chip-container{
+    margin:15px 0;
+}
+
+.chip{
+    display:inline-block;
+    background:#e3f2fd;
+    color:#1565c0;
+    padding:6px 12px;
+    margin:5px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+/* PROGRESS BAR */
+.progress{
+    width:100%;
+    background:#ddd;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress-fill{
+    background:linear-gradient(45deg,#4caf50,#81c784);
+    color:white;
+    padding:6px;
+    text-align:center;
+    font-size:13px;
+}
+
+/* CIRCLE SCORE */
+.circle-score{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:conic-gradient(#4caf50 var(--value), #ddd 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:20px;
+    margin:15px auto;
+}
+
+/* INSIGHT BOX */
+.insight-box{
+    margin-top:15px;
+    padding:10px;
+    background:#f5f5f5;
+    border-left:5px solid #1565c0;
+    border-radius:8px;
+}
+.score-title{
+    font-weight:bold;
+    margin-bottom:5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>AI Resume Parser & Recruitment Platform</header>
+
+<!-- HOME PAGE -->
+<div id="home" class="container">
+
+<div class="card" onclick="showClient()">
+<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+<h2>Client Portal</h2>
+<p>Upload your resume and get AI-powered insights, skill analysis, and improvement suggestions.</p>
+</div>
+
+<div class="card" onclick="showCompany()">
+<img src="https://images.unsplash.com/photo-1556761175-4b46a572b786">
+<h2>Company Dashboard</h2>
+<p>Find top talent instantly using smart resume parsing and AI candidate ranking.</p>
+</div>
+
+</div>
+
+<!-- CLIENT SECTION -->
+<div id="clientSection" class="section">
+<h2>Client Services</h2>
+
+<div class="options">
+
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4">
+<h3>Upload Resume</h3>
+<p>Upload your resume and get a detailed breakdown of your skills.</p>
+<button onclick="openUpload()">Open</button>
+</div>
+
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+<h3>Skill Analysis</h3>
+<p>See how your skills match current industry trends.</p>
+<button onclick="openSkills()">Open</button>
+</div>
+
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1551434678-e076c223a692">
+<h3>Resume Score</h3>
+<p>Get an ATS compatibility score and improvement tips.</p>
+<button onclick="openScore()">Open</button>
+</div>
+
+</div>
+
+<button class="back-btn" onclick="goHome()">⬅ Back to Home</button>
+</div>
+
+<!-- UPLOAD PAGE -->
+<div id="uploadPage" class="section">
+<h2>Upload Resume</h2>
+
+<input type="file" id="resumeFile">
+<button onclick="uploadResume()">Upload</button>
+
+<div id="resultBox" style="margin-top:20px;"></div>
+
+<button class="back-btn" onclick="goClient()">⬅ Back</button>
+</div>
+
+<!-- SKILLS PAGE -->
+<div id="skillsPage" class="section">
+<h2>Skill Analysis</h2>
+
+<div id="skillsResult" style="margin-top:20px;"></div>
+
+<button class="back-btn" onclick="goClient()">⬅ Back</button>
+</div>
+
+<!-- SCORE PAGE -->
+<div id="scorePage" class="section">
+<h2>ATS Score</h2>
+
+<div id="scoreResult" style="margin-top:20px;"></div>
+
+<button class="back-btn" onclick="goClient()">⬅ Back</button>
+</div>
+<!-- COMPANY SECTION -->
+<div id="companySection" class="section">
+<h2>Company Recruitment Tools</h2>
+
+<div class="options">
+
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7">
+<h3>Upload Bulk Resumes</h3>
+<p>Upload multiple resumes for automated parsing.</p>
+<input type="file" id="bulkFiles" multiple>
+<button onclick="uploadBulk()">Upload</button>
+<div id="bulkResult"></div>
+</div>
+
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
+<h3>AI Candidate Ranking</h3>
+<p>Automatically rank candidates based on job description.</p>
+<button onclick="showRanking()">AI Ranking</button>
+</div>
+<div class="option-card">
+<img src="https://images.unsplash.com/photo-1521791136064-7986c2920216">
+<h3>Shortlist & Compare</h3>
+<p>Compare top candidates and shortlist the best match.</p>
+<button onclick="showRanking()">Open</button>
+</div>
+</div>
+<button class="back-btn" onclick="showCompany()">⬅ Back</button>
+</div>
+
+<div id="rankingPage" class="section">
+<h2>AI Candidate Ranking</h2>
+<div id="rankingResult"></div>
+<button class="back-btn" onclick="showRanking()">⬅ Back</button>
+</div>
+</div>
+<div id="comparePage" class="section">
+<h2>Compare Candidates</h2>
+<div id="compareResult"></div>
+</div>
+<script>
+    let shortlisted = [];
+let bulkData = null;
+let parsedData = null;
+
+function showClient(){
+    document.getElementById("home").style.display="none";
+    document.getElementById("clientSection").style.display="block";
+}
+
+function showCompany(){
+    document.getElementById("home").style.display="none";
+    document.getElementById("companySection").style.display="block";
+}
+
+function goHome(){
+    document.getElementById("clientSection").style.display="none";
+    document.getElementById("home").style.display="flex";
+}
+
+function hideAll(){
+    document.getElementById("clientSection").style.display="none";
+    document.getElementById("uploadPage").style.display="none";
+    document.getElementById("skillsPage").style.display="none";
+    document.getElementById("scorePage").style.display="none";
+    document.getElementById("rankingPage").style.display="none";
+document.getElementById("comparePage").style.display="none";
+}
+
+function openUpload(){
+    hideAll();
+    document.getElementById("uploadPage").style.display="block";
+}
+
+function openSkills(){
+    hideAll();
+    document.getElementById("skillsPage").style.display="block";
+
+    if(parsedData){
+        document.getElementById("skillsResult").innerHTML = `
+<div class="result-card">
+
+    <h3>🧠 Skill Analysis</h3>
+
+    <div class="chip-container">
+        ${parsedData.skills.map(skill => `<span class="chip">${skill}</span>`).join("")}
+    </div>
+
+    <div class="insight-box">
+        🔥 Strong Skills: ${parsedData.skills.slice(0,3).join(", ")} <br>
+        ⚠️ Improve: Communication, Projects, Frameworks
+    </div>
+
+</div>
+`;
+    } else {
+        document.getElementById("skillsResult").innerHTML =
+            "Upload resume first!";
+    }
+}
+
+function openScore(){
+
+    hideAll();
+    document.getElementById("scorePage").style.display="block";
+
+    if(!parsedData){
+        document.getElementById("scoreResult").innerHTML =
+            "Upload resume first!";
+        return;
+    }
+
+    // ✅ Correct values
+    const theo = parsedData.theoretical_score ?? parsedData.ats_score ?? 0;
+    const ai = parsedData.ai_score ?? 0;
+    const final = parsedData.final_score ?? ((ai + theo) / 2);
+
+    document.getElementById("scoreResult").innerHTML = `
+    <div class="result-card">
+
+        <h3>📊 Resume Score Analysis</h3>
+
+        <div class="circle-score" style="--value:${final * 3.6}deg">
+            ${final.toFixed(1)}%
+        </div>
+
+        <p><b>📊 Theoretical:</b> ${theo}%</p>
+        <p><b>🧠 AI Score:</b> ${ai}%</p>
+        <p><b>⭐ Final Score:</b> ${final.toFixed(1)}%</p>
+
+        <div class="progress">
+            <div class="progress-fill" style="width:${final}%">
+                ${final.toFixed(1)}%
+            </div>
+        </div>
+
+        <div class="insight-box">
+            📈 Hybrid scoring (Rule + AI) <br>
+            ✔ Balanced evaluation <br>
+            🚀 Improves real-world accuracy
+        </div>
+
+    </div>
+    `;
+}
+function goClient(){
+    hideAll();
+    document.getElementById("clientSection").style.display="block";
+}
+async function uploadBulk() {
+
+    const files = document.getElementById("bulkFiles").files;
+
+    if(files.length === 0){
+        alert("Select files first!");
+        return;
+    }
+
+    const formData = new FormData();
+
+    for(let i = 0; i < files.length; i++){
+        formData.append("resumes", files[i]);
+    }
+
+    try{
+        const res = await fetch("http://127.0.0.1:5000/upload-bulk", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.json();
+
+        console.log("Bulk Data:", data);
+
+        // ✅ Store globally for ranking page
+        bulkData = data;
+
+        // ✅ Simple confirmation UI
+        document.getElementById("bulkResult").innerHTML = `
+            <h3>✅ Upload Successful</h3>
+            <p>${files.length} resumes processed.</p>
+            <p>👉 Go to <b>AI Ranking</b> to see results.</p>
+        `;
+
+    } catch(err){
+        console.error(err);
+        alert("Bulk upload failed");
+    }
+}
+function showRanking(){
+
+    hideAll();
+    document.getElementById("rankingPage").style.display="block";
+
+    if(!bulkData){
+        document.getElementById("rankingResult").innerHTML =
+            "⚠️ Upload resumes first!";
+        return;
+    }
+
+    const sorted = bulkData
+        .map((item, index) => ({
+            ...item,
+            index: index + 1
+        }))
+        .sort((a, b) => {
+
+            const scoreA = a.final_score ?? ((a.ai_score ?? 0) + (a.theoretical_score ?? a.ats_score ?? 0)) / 2;
+            const scoreB = b.final_score ?? ((b.ai_score ?? 0) + (b.theoretical_score ?? b.ats_score ?? 0)) / 2;
+
+            return scoreB - scoreA;
+        });
+
+    let html = "<h3>🏆 Ranked Candidates:</h3>";
+
+    sorted.forEach((item, i) => {
+
+        const theo = item.theoretical_score ?? item.ats_score ?? 0;
+        const ai = item.ai_score ?? 0;
+
+        const score = item.final_score ?? ((ai + theo) / 2);
+
+        let medal = "";
+        if(i === 0) medal = "🥇";
+        else if(i === 1) medal = "🥈";
+        else if(i === 2) medal = "🥉";
+
+        html += `
+    <div style="
+        padding:12px;
+        margin:10px;
+        border-radius:12px;
+        background:${i === 0 ? '#c8e6c9' : '#f5f5f5'};
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    ">
+        <b>${medal} Resume ${item.index}</b> → 
+        <span style="font-size:18px;"><b>${score.toFixed(1)}%</b></span>
+
+        <br>
+        <small>
+            🧠 AI: ${ai}% | 📊 Theo: ${theo}%
+        </small>
+
+        <br><br>
+        <button onclick="addToShortlist(${item.index - 1})">
+            Shortlist
+        </button>
+    </div>
+`;
+    });
+html += `<br><button onclick="compareCandidates()">Compare Selected</button>`;
+    document.getElementById("rankingResult").innerHTML = html;
+}
+async function uploadResume() {
+
+    const file = document.getElementById("resumeFile").files[0];
+
+    if (!file) {
+        alert("Please select a file first!");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", file);
+
+    try {
+        const res = await fetch("http://127.0.0.1:5000/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.json();
+        console.log("DATA FROM BACKEND:", data); // debug
+        parsedData = data;
+        
+const score = data.ats_score ?? data.score ?? 0;
+const theo = data.theoretical_score ?? data.ats_score ?? 0;
+const ai = data.ai_score ?? 0;
+const final = data.final_score ?? theo;
+const category = data.ml_category ?? "N/A";
+
+document.getElementById("resultBox").innerHTML = `
+<div class="result-card">
+
+    <h3>📄 Resume Insights</h3>
+
+    <!-- CATEGORY -->
+    <div class="insight-box">
+        🎯 Predicted Domain: <b>${category}</b>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="chip-container">
+        ${data.skills.map(skill => `<span class="chip">${skill}</span>`).join("")}
+    </div>
+
+    <!-- SCORES -->
+    <div style="margin-top:15px">
+
+        <p><b>📊 Theoretical Score:</b></p>
+        <div class="progress">
+            <div class="progress-fill" style="width:${theo}%">${theo}%</div>
+        </div>
+
+        <p style="margin-top:10px;"><b>🧠 AI Score:</b></p>
+        <div class="progress">
+            <div class="progress-fill" style="width:${ai}%; background:linear-gradient(45deg,#ff9800,#ffc107)">
+                ${ai}%
+            </div>
+        </div>
+
+        <p style="margin-top:10px;"><b>⭐ Final Score:</b></p>
+        <div class="progress">
+            <div class="progress-fill" style="width:${final}%; background:linear-gradient(45deg,#4caf50,#00e676)">
+                ${final}%
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="insight-box">
+        ✔ Strong Skills: ${data.skills.slice(0,3).join(", ")} <br>
+        ⚠️ Improve: Add projects, quantify achievements <br>
+        🚀 Tip: Tailor resume based on job role
+    </div>
+
+</div>
+`;
+
+    } catch (err) {
+        console.error(err);
+        alert("Error connecting to backend");
+    }
+}
+function addToShortlist(index){
+
+    if(!shortlisted.includes(index)){
+        shortlisted.push(index);
+        alert(`Resume ${index + 1} shortlisted!`);
+    } else {
+        alert("Already shortlisted!");
+    }
+}
+
+function compareCandidates(){
+
+    hideAll();
+    document.getElementById("comparePage").style.display="block";
+
+    if(!bulkData || shortlisted.length === 0){
+        document.getElementById("compareResult").innerHTML =
+            "⚠️ No candidates shortlisted!";
+        return;
+    }
+
+    let html = "<h3>📊 Comparison:</h3>";
+
+    shortlisted.forEach(index => {
+
+        const item = bulkData[index];
+
+        if(!item) return;
+
+        const theo = item.theoretical_score ?? item.ats_score ?? 0;
+        const ai = item.ai_score ?? 0;
+        const final = item.final_score ?? ((ai + theo) / 2);
+
+        html += `
+            <div style="
+                padding:12px;
+                margin:10px;
+                border-radius:12px;
+                background:#f5f5f5;
+                box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            ">
+                <h4>Resume ${index + 1}</h4>
+                <p>⭐ Final Score: ${final.toFixed(1)}%</p>
+                <p>🧠 AI: ${ai}% | 📊 Theo: ${theo}%</p>
+                <p>Skills: ${item.skills ? item.skills.join(", ") : "N/A"}</p>
+            </div>
+        `;
+    });
+
+    document.getElementById("compareResult").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
